@@ -21,14 +21,9 @@ const fetchCharacters = async () => {
     // Fetch data from API
     const response = await fetch("https://rickandmortyapi.com/api/character");
     const data = await response.json();
-    //return data.results.slice(0, 20);
-
     console.log(data);
-    // Import createCharacterCard function
-    //const { createCharacterCard } = await import("./createCharacterCard");
 
     // Empty cardContainer
-    //const cardContainer = document.querySelector("#cardContainer");
     cardContainer.innerHTML = "";
 
     // Create HTML card for each character and append it to the cardContainer
@@ -41,34 +36,3 @@ const fetchCharacters = async () => {
   }
 };
 fetchCharacters();
-
-/* async function fetchCharacters() {
-  try {
-    const response = await fetch(
-      "https://rickandmortyapi.com/api/character?page=1"
-      // ODER https://rickandmortyapi.com/api/character
-    );
-    if (!response.ok) {
-      throw new Error("Rick has died");
-    }
-    const data = await response.json();
-    // get the first 20 characters
-    return data.results.slice(0, 20);
-  } catch (err) {
-    console.error("Rick is not home:", err);
-  }
-}
-
-async function renderCharacters() {
-  const characters = await fetchCharacters();
-  const cardContainer = document.querySelector("#cardContainer");
-  // OR INNER HTML
-  // cardContainer.innerHTML = ""; // clear the container
-  characters.forEach((character) => {
-    const card = createCharacterCard(character);
-    cardContainer.appendChild(card);
-  });
-}
-
-renderCharacters();
- */
