@@ -20,7 +20,7 @@ const fetchCharacters = async () => {
   try {
     // Fetch data from API
     const response = await fetch(
-      "https://rickandmortyapi.com/api/character?page=3"
+      `https://rickandmortyapi.com/api/character?page=${page}`
     );
     const data = await response.json();
     maxPage = data.info.pages;
@@ -48,3 +48,26 @@ function updatePageDisplay() {
 }
 
 fetchCharacters();
+
+// event listener previous button
+prevButton.addEventListener("click", async () => {
+  console.log("prev:");
+  if (page > 1) {
+    cardContainer.innerHTML = "";
+    page--;
+    fetchCharacters();
+    // updatePageDisplay();
+  }
+});
+
+// event listener next button
+console.log("next:", nextButton);
+nextButton.addEventListener("click", async () => {
+  console.log("next:");
+  if (page < maxPage) {
+    cardContainer.innerHTML = "";
+    page++;
+    fetchCharacters();
+    // updatePageDisplay();
+  }
+});
