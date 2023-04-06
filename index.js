@@ -13,13 +13,13 @@ const pagination = document.querySelector('[data-js="pagination"]');
 // States
 const maxPage = 1;
 const page = 1;
-const searchQuery = "";
+let searchQuery = "";
 
 // Function to fetch characters from an API and create HTML cards for each character
 const fetchCharacters = async () => {
   try {
     // Fetch data from API
-    const response = await fetch("https://rickandmortyapi.com/api/character");
+    const response = await fetch("https://rickandmortyapi.com/api/character"); // https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}
     const data = await response.json();
     console.log(data);
 
@@ -36,3 +36,24 @@ const fetchCharacters = async () => {
   }
 };
 fetchCharacters();
+
+// Add a submit event listener to the search bar
+searchBar.addEventListener("submit" || "click", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const name = Object.fromEntries(formData);
+  console.log(name);
+  // Update the state variable searchQuery with the current text
+  searchQuery = searchBar.querySelector("input").value;
+
+  fetchCharacters();
+  //document.querySelector;
+  // Modify the fetch URL by adding another url encoded attribute name
+  let fetchURL = `https://rickandmortyapi.com/api/character?name=${searchQuery}`;
+
+  // Trigger the function fetch
+  fetchCharacters(fetchURL);
+});
+
+//get input with class  2 get it value that is a text 3 fetch with the url add the text into the url
