@@ -11,16 +11,22 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-const maxPage = 1;
-const page = 1;
+let maxPage = 1;
+let page = 1;
 const searchQuery = "";
 
 // Function to fetch characters from an API and create HTML cards for each character
 const fetchCharacters = async () => {
   try {
     // Fetch data from API
-    const response = await fetch("https://rickandmortyapi.com/api/character");
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character?page=${page}`
+    );
     const data = await response.json();
+    maxPage = data.info.pages;
+    console.log("MaxPage:", maxPage);
+    console.log("updatePageDisplay");
+    updatePageDisplay();
     console.log(data);
 
     // Empty cardContainer
@@ -35,4 +41,33 @@ const fetchCharacters = async () => {
     console.error(err);
   }
 };
+
+function updatePageDisplay() {
+  console.log(maxPage);
+  pagination.textContent = `${page} / ${maxPage}`;
+}
+
 fetchCharacters();
+
+// event listener previous button
+prevButton.addEventListener("click", async () => {
+  console.log("prev:");
+  if (page > 1) {
+    cardContainer.innerHTML = "";
+    page--;
+    fetchCharacters();
+    // updatePageDisplay();
+  }
+});
+
+// event listener next button
+console.log("next:", nextButton);
+nextButton.addEventListener("click", async () => {
+  console.log("next:");
+  if (page < maxPage) {
+    cardContainer.innerHTML = "";
+    page++;
+    fetchCharacters();
+    // updatePageDisplay();
+  }
+});
